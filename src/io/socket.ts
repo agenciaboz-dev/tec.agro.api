@@ -2,6 +2,7 @@ import { Socket } from "socket.io"
 import { Client, ClientBag } from "../../definitions/client"
 import { User } from "@prisma/client"
 import { handleLogin } from "../login"
+import { handleLogout } from "../logout"
 
 export let clientList: Client[] = []
 
@@ -31,7 +32,11 @@ export const handleSocket = (socket: Socket) => {
         if (client) clients.remove(client)
     })
 
-    socket.on("login:try", (data) => {
+    socket.on("user:login", (data) => {
         handleLogin(socket, clients, data)
+    })
+
+    socket.on("user:logout", () => {
+        handleLogout(socket, clients)
     })
 }
