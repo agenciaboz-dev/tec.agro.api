@@ -3,6 +3,7 @@ import { Client, ClientBag } from "../../definitions/client"
 import { User } from "@prisma/client"
 import { handleLogin } from "../login"
 import { handleLogout } from "../logout"
+import { handleSignup } from "../signup"
 
 export let clientList: Client[] = []
 
@@ -38,5 +39,9 @@ export const handleSocket = (socket: Socket) => {
 
     socket.on("user:logout", () => {
         handleLogout(socket, clients)
+    })
+
+    socket.on("user:signup", (data:User) => {
+        handleSignup(socket, data)
     })
 }
