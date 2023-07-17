@@ -11,16 +11,17 @@ export const newChat = async (socket: Socket, clients: ClientBag, data: NewChatB
         data: {
             channel: data.channel,
             messages: { create: { text: data.message, userId: client.user.id } },
-            users: { connect: data.users.map((user) => user.id) },
+            users: { connect: data.users.map((user) => ({ id: user.id })) },
         },
         include: {
             messages: { include: { user: true } },
             users: true,
         },
     })
+    console.log(chat)
 
     socket.emit("chat:new", chat)
-    destination.socket.emit("chat:new", chat)
+    destination?.socket.emit("chat:new", chat)
 }
 
 export const handleChat = async (socket: Socket, clients: ClientBag, data: ChatBag) => {}
