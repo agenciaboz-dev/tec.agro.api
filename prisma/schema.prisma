@@ -18,4 +18,37 @@ model User {
     agent       Boolean     @default(false)
     business    Boolean     @default(false)
     shipping    Boolean     @default(false)
+    sold        Int         @default(0)
+
+    crops       Crop[]
+    mediatedCrops MediatedCrop[]
+
+}
+
+model Crop {
+    id          Int         @id @default(autoincrement())
+    name        String
+    description String      @db.Text
+    weight      Float
+    price       Float
+
+    producer    User        @relation(fields: [producerId], references: [id])
+    producerId  Int
+    mediated    MediatedCrop?
+
+    rating      Float?   
+    date        DateTime    @default(now())
+    sold        Int         @default(0)
+
+
+}
+
+model MediatedCrop {
+    id          Int         @id @default(autoincrement())
+    crop        Crop        @relation(fields: [cropId], references: [id])
+    cropId      Int         @unique
+
+    agent       User        @relation(fields: [agentId], references: [id])
+    agentId     Int
+
 }
