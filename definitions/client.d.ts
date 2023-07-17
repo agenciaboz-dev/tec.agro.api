@@ -7,6 +7,7 @@ declare interface Client {
 
 declare interface ClientBag {
     get: (socket: Socket) => Client
+    find: (id: number) => Client
     convert: (client: Client) => GetResult<
         {
             id: number

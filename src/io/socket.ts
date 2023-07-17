@@ -4,6 +4,7 @@ import { User } from "@prisma/client"
 import { handleLogin } from "../login"
 import { handleLogout } from "../logout"
 import { handleSignup } from "../signup"
+import { newChat } from "../chat"
 
 export let clientList: Client[] = []
 
@@ -14,6 +15,7 @@ const userClient = (client: Client) => {
 
 const clients: ClientBag = {
     get: (socket: Socket) => clientList.filter((client) => client.socket == socket)[0],
+    find: (id: number) => clientList.filter((client) => client.user.id == id)[0],
     convert: (client: Client) => userClient(client),
     list: () => {
         return clientList.map((client) => client.user)
@@ -44,4 +46,6 @@ export const handleSocket = (socket: Socket) => {
     socket.on("user:signup", (data:User) => {
         handleSignup(socket, data)
     })
+
+    socket.on("chat:new", (data) => newChat(socket, clients, data))
 }

@@ -14,6 +14,9 @@ export const handleLogin = async (socket: Socket, clients: ClientBag, data: { lo
         clients.add({ socket, user })
         socket.emit("login:success", user)
 
+        const chats = await prisma.chat.findMany({ where: { users: { some: { id: user.id } } }, include: { messages: true, users: true } })
+        socket.emit("chats:list", chats)
+
         const crops = await prisma.crop.findMany({ include: { producer: true, mediated: { include: { agent: true } } } })
         socket.emit("crops:list", crops)
     } else {
