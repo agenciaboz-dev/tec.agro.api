@@ -20,8 +20,8 @@ model User {
     shipping    Boolean     @default(false)
     sold        Int         @default(0)
     bought      Int         @default(0)
+    rating      Float       @default(5)
     date        DateTime    @default(now())
-    rating      Float?
 
     crops       Crop[]
     mediatedCrops MediatedCrop[]
