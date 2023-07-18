@@ -7,7 +7,7 @@ const prisma = new PrismaClient()
 
 export const handleLogin = async (socket: Socket, clients: ClientBag, data: { login: string; password: string }) => {
     const user = await prisma.user.findFirst({
-        where: { OR: [{ document: data.login }, { email: data.login }], AND: { password: data.password } },
+        where: { OR: [{ document: data.login }, { email: data.login }, { username: data.login }], AND: { password: data.password } },
         include: {
             crops: { include: { mediated: true } },
             mediatedCrops: { include: { crop: { include: { producer: true } } } },
