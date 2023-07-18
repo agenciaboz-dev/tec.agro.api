@@ -1,10 +1,10 @@
 import { Socket } from "socket.io"
 import { Client, ClientBag } from "../../definitions/client"
 import { User } from "@prisma/client"
-import { handleLogin } from "../login"
-import { handleLogout } from "../logout"
-import { handleSignup } from "../signup"
-import { newChat } from "../chat"
+import { handleLogin } from "./login"
+import { handleLogout } from "./logout"
+import { handleSignup } from "./signup"
+import { newChat } from "./chat"
 
 export let clientList: Client[] = []
 

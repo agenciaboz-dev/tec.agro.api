@@ -1,5 +1,5 @@
 import { Socket } from "socket.io"
-import { ClientBag } from "../definitions/client"
+import { ClientBag } from "../../definitions/client"
 import { PrismaClient, User } from "@prisma/client"
 
 const prisma = new PrismaClient()
@@ -15,10 +15,9 @@ export const handleSignup = async (socket: Socket, data: User) => {
         },
     })
 
-    if(user){
+    if (user) {
         socket.emit("signup:success")
-    }else{
+    } else {
         socket.emit("signup:error")
     }
-
 }

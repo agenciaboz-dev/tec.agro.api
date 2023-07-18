@@ -1,7 +1,7 @@
 import { Socket } from "socket.io"
-import { ClientBag } from "../definitions/client"
+import { ClientBag } from "../../definitions/client"
 import { PrismaClient } from "@prisma/client"
-import { fetch } from "./prisma"
+import { fetch } from "../prisma"
 
 const prisma = new PrismaClient()
 
