@@ -45,6 +45,7 @@ model Crop {
     date        DateTime    @default(now())
     sold        Int         @default(0)
 
+    categories  Category[]
 
 }
 
@@ -73,4 +74,10 @@ model Chat {
     channel     String
     messages    Message[]
     users       User[]      
+}
+
+model Category {
+    id          Int         @id @default(autoincrement())
+    name        String
+    crops       Crop[]
 }
