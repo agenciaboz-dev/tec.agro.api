@@ -44,7 +44,7 @@ model Crop {
     producerId  Int
     mediated    MediatedCrop?
 
-    rating      Float?   
+    rating      Float       @default(5)   
     date        DateTime    @default(now())
     sold        Int         @default(0)
 
