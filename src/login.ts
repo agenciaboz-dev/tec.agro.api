@@ -19,7 +19,7 @@ export const handleLogin = async (socket: Socket, clients: ClientBag, data: { lo
         clients.add({ socket, user })
         socket.emit("login:success", user)
 
-        fetch.chats.user(user, (chats) => socket.emit("chats:list", chats))
+        fetch.chats.user(user, (chats) => socket.emit("chat:list", chats))
         fetch.crops.list((crops) => socket.emit("crops:list", crops))
         fetch.categories.list((categories) => socket.emit("categories:list", categories))
     } else {
