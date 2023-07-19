@@ -2,7 +2,7 @@ import { Category, Chat, Crop, PrismaClient, User } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
-const include = {
+export const include = {
     crops: { producer: true, mediated: { include: { agent: true } }, categories: true },
     chats: { messages: true, users: true },
     categories: {},

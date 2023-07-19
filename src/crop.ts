@@ -1,6 +1,9 @@
 import { Crop, PrismaClient } from "@prisma/client"
+import { io as ioSocket } from "socket.io-client"
+import { include } from "./prisma"
 
 const prisma = new PrismaClient()
+const io = ioSocket("wss://app.agenciaboz.com.br:4104")
 
 export const crop = {
     new: (crop: Crop, callback: Function) => {
@@ -16,7 +19,13 @@ export const crop = {
                     gallery: crop.gallery,
                     producerId: crop.producerId,
                 },
+                include: include.crops,
             })
-            .then((result) => callback(result))
+            .then((result) => {
+                if (result) {
+                    io.emit("crop:new", result)
+                    callback(result)
+                }
+            })
     },
 }

@@ -5,6 +5,7 @@ import { handleLogin } from "./login"
 import { handleLogout } from "./logout"
 import { handleSignup } from "./signup"
 import { newChat } from "./chat"
+import { handleCrop } from "./crop"
 
 export let clientList: Client[] = []
 
@@ -43,9 +44,11 @@ export const handleSocket = (socket: Socket) => {
         handleLogout(socket, clients)
     })
 
-    socket.on("user:signup", (data:User) => {
+    socket.on("user:signup", (data: User) => {
         handleSignup(socket, data)
     })
 
     socket.on("chat:new", (data) => newChat(socket, clients, data))
+
+    socket.on("crop:new", (data) => handleCrop(socket, data))
 }

@@ -10,6 +10,7 @@ import http from "http"
 import fs from "fs"
 import { Server } from "socket.io"
 import { handleSocket } from "./src/io/socket"
+import { setIo } from "./src/io/io"
 
 dotenv.config()
 
@@ -35,6 +36,7 @@ try {
     )
 
     const io = new Server(server, { cors: { origin: "*" } })
+    setIo(io)
     io.on("connection", (socket) => {
         handleSocket(socket)
     })
@@ -45,6 +47,7 @@ try {
 } catch {
     const server = http.createServer(app)
     const io = new Server(server, { cors: { origin: "*" } })
+    setIo(io)
 
     io.on("connection", (socket) => {
         handleSocket(socket)
