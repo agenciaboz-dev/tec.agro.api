@@ -19,7 +19,6 @@ model User {
     adm         Boolean     @default(false)
     producer    Boolean     @default(false)
     agent       Boolean     @default(false)
-    business    Boolean     @default(false)
     shipping    Boolean     @default(false)
     sold        Int         @default(0)
     bought      Int         @default(0)
@@ -31,6 +30,20 @@ model User {
     chats       Chat[]
     messages    Message[]
 
+    business    Business?
+}
+
+model Business {
+    id          Int         @id @default(autoincrement())
+    name        String
+
+    date        DateTime    @default(now())
+
+    store       Boolean
+    service     Boolean
+
+    user        User        @relation(fields: [user_id], references: [id])
+    user_id     Int         @unique
 }
 
 model Crop {
