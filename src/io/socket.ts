@@ -1,4 +1,4 @@
-import { Socket } from "socket.io"
+import { Server, Socket } from "socket.io"
 import { Client, ClientBag } from "../../definitions/client"
 import { User } from "@prisma/client"
 import { handleLogin } from "./login"
@@ -7,6 +7,7 @@ import { handleSignup } from "./signup"
 import { newChat } from "./chat"
 import { handleCrop } from "./crop"
 import { handleBusiness } from "./business"
+import { DefaultEventsMap } from "socket.io/dist/typed-events"
 
 export let clientList: Client[] = []
 
@@ -28,7 +29,7 @@ const clients: ClientBag = {
     },
 }
 
-export const handleSocket = (socket: Socket) => {
+export const handleSocket = (socket: Socket, io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>) => {
     console.log(`new connection: ${socket.id}`)
 
     socket.on("disconnect", () => {
@@ -53,5 +54,5 @@ export const handleSocket = (socket: Socket) => {
 
     socket.on("crop:new", (data) => handleCrop(socket, data))
 
-    socket.on("business:new", (data) => handleBusiness(socket, data))
+    socket.on("business:new", (data) => handleBusiness(socket, data, clients))
 }

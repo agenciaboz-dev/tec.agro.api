@@ -38,7 +38,7 @@ try {
     const io = new Server(server, { cors: { origin: "*" } })
     setIo(io)
     io.on("connection", (socket) => {
-        handleSocket(socket)
+        handleSocket(socket, io)
     })
 
     server.listen(port, () => {
@@ -50,7 +50,7 @@ try {
     setIo(io)
 
     io.on("connection", (socket) => {
-        handleSocket(socket)
+        handleSocket(socket, io)
     })
 
     server.listen(port, () => {

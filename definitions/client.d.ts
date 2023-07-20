@@ -1,3 +1,4 @@
+import { User } from "@prisma/client"
 import { Socket } from "socket.io"
 
 declare interface Client {
