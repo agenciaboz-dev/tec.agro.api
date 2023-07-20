@@ -6,6 +6,12 @@ export const include = {
     crops: { producer: true, mediated: { include: { agent: true } }, categories: true },
     chats: { messages: true, users: true },
     categories: {},
+
+    user: {
+        crops: { include: { mediated: true } },
+        mediatedCrops: { include: { crop: { include: { producer: true } } } },
+        chats: { include: { users: true, messages: { include: { user: true } } } },
+    },
 }
 
 export const fetch = {
@@ -21,5 +27,15 @@ export const fetch = {
     categories: {
         list: (callback: (categories: Category[]) => void) =>
             prisma.category.findMany({ include: include.categories }).then((result) => callback(result)),
+    },
+    user: {
+        login: async (data: { login: string; password: string }) => {
+            const user = await prisma.user.findFirst({
+                where: { OR: [{ document: data.login }, { email: data.login }, { username: data.login }], AND: { password: data.password } },
+                include: include.user,
+            })
+
+            return user
+        },
     },
 }
