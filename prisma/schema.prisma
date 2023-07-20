@@ -46,8 +46,8 @@ model Business {
     store       Boolean
     service     Boolean
 
-    user        User        @relation(fields: [user_id], references: [id])
-    user_id     Int         @unique
+    user        User        @relation(fields: [userId], references: [id])
+    userId      Int         @unique
 }
 
 model Crop {
