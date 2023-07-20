@@ -36,6 +36,10 @@ model User {
 model Business {
     id          Int         @id @default(autoincrement())
     name        String
+    document    String
+    phone       String
+    email       String
+    image       String?     @db.Text
 
     date        DateTime    @default(now())
 
