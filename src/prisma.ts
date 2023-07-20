@@ -1,4 +1,4 @@
-import { Category, Chat, Crop, PrismaClient, User } from "@prisma/client"
+import { Business, Category, Chat, Crop, PrismaClient, User } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
@@ -13,6 +13,8 @@ export const include = {
         chats: { include: { users: true, messages: { include: { user: true } } } },
         business: true,
     },
+
+    business: { user: true },
 }
 
 export const fetch = {
@@ -38,5 +40,9 @@ export const fetch = {
 
             return user
         },
+    },
+    business: {
+        list: (callback: (businesses: Business[]) => void) =>
+            prisma.business.findMany({ include: include.business }).then((result) => callback(result)),
     },
 }
