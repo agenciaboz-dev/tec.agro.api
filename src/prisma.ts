@@ -11,6 +11,7 @@ export const include = {
         crops: { include: { mediated: true } },
         mediatedCrops: { include: { crop: { include: { producer: true } } } },
         chats: { include: { users: true, messages: { include: { user: true } } } },
+        business: true,
     },
 }
 
