@@ -30,7 +30,7 @@ export const handleBusiness = async (socket: Socket, data: Business & { file: Ar
     socket.emit("business:new", business)
 
     // @ts-ignore
-    const user = fetch.user.get(client.user.id) as User
+    const user = (await fetch.user.get(client.user.id)) as User
     console.log(user)
     socket.emit("user:update", user)
     clients.update(client, user)
