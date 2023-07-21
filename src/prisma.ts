@@ -40,6 +40,7 @@ export const fetch = {
 
             return user
         },
+        get: async (id: number) => await prisma.user.findUnique({ where: { id }, include: include.user }),
     },
     business: {
         list: (callback: (businesses: Business[]) => void) =>

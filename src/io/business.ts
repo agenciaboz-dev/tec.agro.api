@@ -28,4 +28,7 @@ export const handleBusiness = async (socket: Socket, data: Business & { file: Ar
 
     socket.broadcast.emit("business:new", business)
     socket.emit("business:new", business)
+
+    const user = fetch.user.get(business.userId)
+    socket.emit("user:update", user)
 }
