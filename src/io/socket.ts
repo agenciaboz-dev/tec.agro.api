@@ -27,6 +27,7 @@ const clients: ClientBag = {
     remove: (client: Client) => {
         clientList = clientList.filter((item) => item.socket != client.socket)
     },
+    update: (client: Client, user: User) => (clientList = [...clientList.filter((item) => item.socket != client.socket), { ...client, user }]),
 }
 
 export const handleSocket = (socket: Socket, io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>) => {

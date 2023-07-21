@@ -22,4 +22,5 @@ declare interface ClientBag {
     list: () => User[]
     add: (client: Client) => number
     remove: (client: Client) => void
+    update: (client: Client, user: User) => Client[]
 }

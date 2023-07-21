@@ -1,5 +1,5 @@
 import { Socket } from "socket.io"
-import { Business, PrismaClient } from "@prisma/client"
+import { Business, PrismaClient, User } from "@prisma/client"
 import { fetch, include } from "../prisma"
 import { ClientBag } from "../../definitions/client"
 import { saveImage } from "../saveImage"
@@ -29,6 +29,8 @@ export const handleBusiness = async (socket: Socket, data: Business & { file: Ar
     socket.broadcast.emit("business:new", business)
     socket.emit("business:new", business)
 
-    const user = fetch.user.get(business.userId)
+    // @ts-ignore
+    const user = fetch.user.get(client.user.id) as User
     socket.emit("user:update", user)
+    clients.update(client, user)
 }
