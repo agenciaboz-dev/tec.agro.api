@@ -13,8 +13,19 @@ model User {
     username    String      @unique
     email       String      @unique
     document    String      @unique
+
     password    String
     name        String
+
+    birth       DateTime?
+    rg          String?
+    phone       String?
+    cep         String?
+    address     String?
+    city        String?
+    district    String?
+    number      String?
+    image       String      @default("")
 
     adm         Boolean     @default(false)
     producer    Boolean     @default(false)
