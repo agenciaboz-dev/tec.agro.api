@@ -16,6 +16,7 @@ export const handleLogin = async (socket: Socket, clients: ClientBag, data: { lo
         fetch.crops.list((crops) => socket.emit("crop:list", crops))
         fetch.categories.list((categories) => socket.emit("categories:list", categories))
         fetch.business.list((businesses) => socket.emit("business:list", businesses))
+        fetch.user.list((users) => socket.emit("user:list", users))
         
     } else {
         socket.emit("login:error")

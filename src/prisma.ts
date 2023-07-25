@@ -66,6 +66,8 @@ export const fetch = {
                 },
                 include: include.user,
             }),
+        list: (callback: (users: User[]) => void) =>
+            prisma.user.findMany({ include: include.user }).then((result) => callback(result)),
     },
     business: {
         list: (callback: (businesses: Business[]) => void) =>
