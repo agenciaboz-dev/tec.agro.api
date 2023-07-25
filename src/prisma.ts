@@ -52,7 +52,6 @@ export const fetch = {
                 where: { id: data.id },
                 data: {
                     address: data.address,
-                    birth: data.birth,
                     cep: data.cep,
                     city: data.city,
                     district: data.district,
