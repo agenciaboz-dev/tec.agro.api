@@ -8,6 +8,7 @@ import { newChat } from "./chat"
 import { handleCrop } from "./crop"
 import { handleBusiness } from "./business"
 import { DefaultEventsMap } from "socket.io/dist/typed-events"
+import { handleUserUpdate } from "./userUpdate"
 
 export let clientList: Client[] = []
 
@@ -27,7 +28,8 @@ const clients: ClientBag = {
     remove: (client: Client) => {
         clientList = clientList.filter((item) => item.socket != client.socket)
     },
-    update: (client: Client, user: User) => (clientList = [...clientList.filter((item) => item.socket != client.socket), { ...client, user }]),
+    update: (client: Client, user: User) =>
+        (clientList = [...clientList.filter((item) => item.socket != client.socket), { ...client, user }]),
 }
 
 export const handleSocket = (socket: Socket, io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>) => {
@@ -56,4 +58,5 @@ export const handleSocket = (socket: Socket, io: Server<DefaultEventsMap, Defaul
     socket.on("crop:new", (data) => handleCrop(socket, data))
 
     socket.on("business:new", (data) => handleBusiness(socket, data, clients))
+    socket.on("user:update", (data) => handleUserUpdate(socket, data, clients))
 }
