@@ -26,6 +26,7 @@ model User {
     district    String?
     number      String?
     image       String      @default("")
+    uf          String?
 
     adm         Boolean     @default(false)
     sold        Int         @default(0)
