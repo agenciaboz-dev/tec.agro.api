@@ -29,7 +29,6 @@ export const handleBusiness = async (socket: Socket, data: Business & { file: Ar
     socket.broadcast.emit("business:new", business)
     socket.emit("business:new", business)
 
-    // @ts-ignore
     const user = (await fetch.user.get(client.user.id)) as User
     console.log(user)
     socket.emit("user:update", user)
