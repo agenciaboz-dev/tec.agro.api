@@ -32,6 +32,7 @@ model User {
     sold        Int         @default(0)
     bought      Int         @default(0)
     rating      Float       @default(5)
+    ratings     Int         @default(0)
     date        DateTime    @default(now())
 
     crops       Crop[]
@@ -55,6 +56,8 @@ model Producer {
 
     date        DateTime    @default(now())
     active      Boolean     @default(false)
+    rating      Float       @default(5)
+    ratings     Int         @default(0)
 
     user        User        @relation(fields: [userId], references: [id])
     userId      Int         @unique
@@ -70,6 +73,8 @@ model Shipping {
 
     date        DateTime    @default(now())
     active      Boolean     @default(false)
+    rating      Float       @default(5)
+    ratings     Int         @default(0)
 
     user        User        @relation(fields: [userId], references: [id])
     userId      Int         @unique
@@ -85,6 +90,8 @@ model Agent {
 
     date        DateTime    @default(now())
     active      Boolean     @default(false)
+    rating      Float       @default(5)
+    ratings     Int         @default(0)
 
     user        User        @relation(fields: [userId], references: [id])
     userId      Int         @unique
@@ -100,6 +107,8 @@ model Business {
 
     date        DateTime    @default(now())
     active      Boolean     @default(false)
+    rating      Float       @default(5)
+    ratings     Int         @default(0)
 
     store       Boolean
     service     Boolean
@@ -122,6 +131,7 @@ model Crop {
     mediated    MediatedCrop?
 
     rating      Float       @default(5)   
+    ratings     Int         @default(0)
     date        DateTime    @default(now())
     sold        Int         @default(0)
 
