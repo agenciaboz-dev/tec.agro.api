@@ -35,7 +35,7 @@ try {
         app
     )
 
-    const io = new Server(server, { cors: { origin: "*" } })
+    const io = new Server(server, { cors: { origin: "*" }, maxHttpBufferSize: 1e8 })
     setIo(io)
     io.on("connection", (socket) => {
         handleSocket(socket, io)
@@ -46,7 +46,7 @@ try {
     })
 } catch {
     const server = http.createServer(app)
-    const io = new Server(server, { cors: { origin: "*" } })
+    const io = new Server(server, { cors: { origin: "*" }, maxHttpBufferSize: 1e8 })
     setIo(io)
 
     io.on("connection", (socket) => {
