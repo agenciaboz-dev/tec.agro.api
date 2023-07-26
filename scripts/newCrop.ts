@@ -14,7 +14,8 @@ const input: Crop = {
     producerId: Number(prompt("producerId: ")),
     image: prompt("image: "),
     gallery: prompt("gallery: "),
-    rating: Number(prompt("rating: ")),
+    rating: 5,
+    ratings: 0,
     sold: Number(prompt("sold: ")),
 }
 
