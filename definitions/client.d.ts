@@ -7,8 +7,8 @@ declare interface Client {
 }
 
 declare interface ClientBag {
-    get: (socket: Socket) => Client
-    find: (id: number) => Client
+    get: (socket: Socket) => Client | undefined
+    find: (id: number) => Client | undefined
     convert: (client: Client) => GetResult<
         {
             id: number
@@ -20,7 +20,7 @@ declare interface ClientBag {
         unknown
     > & {}
     list: () => User[]
-    add: (client: Client) => number
-    remove: (client: Client) => void
+    add: (client: Client) => void
+    remove: (client: Client | undefined) => void
     update: (client: Client, user: User) => Client[]
 }
