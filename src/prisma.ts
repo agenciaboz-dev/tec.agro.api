@@ -1,11 +1,11 @@
-import { Business, Category, Chat, Crop, PrismaClient, User } from "@prisma/client"
+import { Business, BusinessCategory, Category, Chat, Crop, PrismaClient, User } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
 export const include = {
     crops: { producer: true, mediated: { include: { agent: true } }, categories: true },
     chats: { messages: true, users: true },
-    categories: {},
+    categories: { user: true },
 
     user: {
         crops: { include: { mediated: true } },
@@ -24,7 +24,7 @@ export const fetch = {
             prisma.crop.findUnique({ where: { id: Number(id) }, include: include.crops }).then((result) => callback(result)),
         categories: {
             list: (callback: (categories: Category[]) => void) =>
-                prisma.category.findMany({ include: include.categories }).then((result) => callback(result)),
+                prisma.category.findMany({ include: { ...include.categories, crops: true } }).then((result) => callback(result)),
         },
     },
     chats: {
@@ -69,5 +69,13 @@ export const fetch = {
     business: {
         list: (callback: (businesses: Business[]) => void) =>
             prisma.business.findMany({ include: include.business }).then((result) => callback(result)),
+        categories: {
+            list: (callback: (categories: BusinessCategory[]) => void) =>
+                prisma.businessCategory.findMany({ include: { ...include.categories, businesses: true } }).then((result) => callback(result)),
+            add: async (data: { name: string }) =>
+                await prisma.businessCategory.create({
+                    data: { name: data.name },
+                }),
+        },
     },
 }

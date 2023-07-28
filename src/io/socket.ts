@@ -9,6 +9,7 @@ import { handleCrop } from "./crop"
 import { handleBusiness } from "./business"
 import { DefaultEventsMap } from "socket.io/dist/typed-events"
 import { handleUserUpdate } from "./userUpdate"
+import { handleNewBusinessCategory } from "./handleNewBusinessCategory"
 
 export let clientList: Client[] = []
 
@@ -63,10 +64,12 @@ export const handleSocket = (socket: Socket, io: Server<DefaultEventsMap, Defaul
         handleSignup(socket, data)
     })
 
+    socket.on("user:update", (data) => handleUserUpdate(socket, data, clients))
+
     socket.on("chat:new", (data) => newChat(socket, clients, data))
 
     socket.on("crop:new", (data) => handleCrop(socket, data))
 
     socket.on("business:new", (data) => handleBusiness(socket, data, clients))
-    socket.on("user:update", (data) => handleUserUpdate(socket, data, clients))
+    socket.on("business:category:new", (data) => handleNewBusinessCategory(socket, data))
 }
