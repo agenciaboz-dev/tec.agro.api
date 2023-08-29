@@ -13,29 +13,33 @@ import { handleNewBusinessCategory } from "./handleNewBusinessCategory"
 
 export let clientList: Client[] = []
 
-const userClient = (client: Client) => {
-    const user: User = client.user
-    return user
+const get = (socket: Socket) => clientList.find((client) => client.socket == socket)
+const find = (id: number) => clientList.find((client) => client.user.id == id)
+const getUser = (client: Client) => client.user
+const list = () => clientList.map((client) => client.user)
+
+const remove = (client: Client | undefined) => {
+    if (!client) return
+    clientList = clientList.filter((item) => item.socket != client.socket)
 }
 
-const clients: ClientBag = {
-    get: (socket: Socket) => clientList.find((client) => client.socket == socket),
-    find: (id: number) => clientList.find((client) => client.user.id == id),
-    convert: (client: Client) => userClient(client),
-    list: () => {
-        return clientList.map((client) => client.user)
-    },
-    add: (client: Client) => {
-        const exists = clientList.find((item) => item.user?.id == client.user.id)
-        if (exists) clientList.filter((item) => item.socket != client.socket)
+const add = (client: Client) => {
+    const exists = find(client.user.id)
+    if (exists) remove(client)
 
-        clientList.push(client)
-    },
-    remove: (client: Client | undefined) => {
-        if (!client) return
-        clientList = clientList.filter((item) => item.socket != client.socket)
-    },
-    update: (client: Client, user: User) => (clientList = [...clientList.filter((item) => item.socket != client.socket), { ...client, user }]),
+    clientList.push(client)
+}
+
+const update = (client: Client, user: User) => (clientList = [...clientList.filter((item) => item.socket != client.socket), { ...client, user }])
+
+const clients: ClientBag = {
+    get,
+    find,
+    getUser,
+    list,
+    add,
+    remove,
+    update,
 }
 
 export const handleSocket = (socket: Socket, io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>) => {

@@ -9,16 +9,7 @@ declare interface Client {
 declare interface ClientBag {
     get: (socket: Socket) => Client | undefined
     find: (id: number) => Client | undefined
-    convert: (client: Client) => GetResult<
-        {
-            id: number
-            email: string
-            document: string
-            password: string
-            name: string
-        },
-        unknown
-    > & {}
+    getUser: (client: Client) => User
     list: () => User[]
     add: (client: Client) => void
     remove: (client: Client | undefined) => void

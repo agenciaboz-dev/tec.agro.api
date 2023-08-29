@@ -60,7 +60,7 @@ export const fetch = {
                     phone: data.phone,
                     rg: data.rg,
                     image: `https://app.agenciaboz.com.br:4104/static/user/${data.id}/images/profile`,
-                    //uf: data.uf,
+                    uf: data.uf,
                 },
                 include: include.user,
             }),
