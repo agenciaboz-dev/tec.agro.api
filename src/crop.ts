@@ -12,8 +12,8 @@ export const crop = {
                 data: {
                     name: crop.name,
                     description: crop.description,
-                    price: crop.price,
-                    weight: crop.weight,
+                    price: Number(crop.price.toString().replace(/\D/g, "")),
+                    weight: Number(crop.weight.toString().replace(/\D/g, "")),
                     date: crop.date,
                     image: crop.image,
                     gallery: crop.gallery,

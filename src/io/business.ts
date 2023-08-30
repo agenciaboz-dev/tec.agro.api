@@ -16,10 +16,10 @@ export const handleBusiness = async (socket: Socket, data: Business & { file: Ar
 
         const business = await prisma.business.create({
             data: {
-                document: data.document,
+                document: data.document.replace(/\D/g, ""),
                 email: data.email,
                 name: data.name,
-                phone: data.phone,
+                phone: data.phone.replace(/\D/g, ""),
                 service: data.service,
                 store: data.store,
                 userId: data.userId,

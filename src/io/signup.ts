@@ -8,7 +8,7 @@ export const handleSignup = async (socket: Socket, data: User) => {
     const user = await prisma.user.create({
         data: {
             username: data.username,
-            document: data.document,
+            document: data.document.replace(/\D/g, ""),
             email: data.email,
             name: data.name,
             password: data.password,

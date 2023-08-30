@@ -10,10 +10,10 @@ export const business = {
         prisma.business
             .create({
                 data: {
-                    document: business.document,
+                    document: business.document.replace(/\D/g, ""),
                     email: business.email,
                     name: business.name,
-                    phone: business.phone,
+                    phone: business.phone.replace(/\D/g, ""),
                     service: business.service,
                     store: business.store,
                     userId: business.userId,
