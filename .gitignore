@@ -2,4 +2,3 @@ node_modules
 dist
 static
 # Keep environment variables out of version control
-.env
