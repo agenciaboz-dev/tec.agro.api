@@ -14,5 +14,5 @@ export const handleUserUpdate = async (socket: Socket, data: User & { file?: Arr
     const user = await fetch.user.update(data)
     console.log(user)
     socket.broadcast.emit("user:update", user)
-    socket.emit("user:update", user)
+    socket.emit("user:update:profile", user)
 }

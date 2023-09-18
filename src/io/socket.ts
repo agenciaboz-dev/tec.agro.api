@@ -14,7 +14,7 @@ import { handleNewBusinessCategory } from "./handleNewBusinessCategory"
 export let clientList: Client[] = []
 
 const get = (socket: Socket) => clientList.find((client) => client.socket == socket)
-const find = (id: number) => clientList.find((client) => client.user.id == id)
+const find = (id: number) => clientList.find((client) => client.user?.id == id)
 const getUser = (client: Client) => client.user
 const list = () => clientList.map((client) => client.user)
 
@@ -24,7 +24,7 @@ const remove = (client: Client | undefined) => {
 }
 
 const add = (client: Client) => {
-    const exists = find(client.user.id)
+    const exists = find(client.user?.id)
     if (exists) remove(client)
 
     clientList.push(client)
@@ -53,7 +53,7 @@ export const handleSocket = (socket: Socket, io: Server<DefaultEventsMap, Defaul
 
     socket.on("client:sync", (user: User) => {
         clients.add({ socket, user })
-        console.log(`reconnection: ${clients.get(socket)?.user.name}`)
+        console.log(`reconnection: ${user?.name}`)
     })
 
     socket.on("user:login", (data) => {
@@ -75,5 +75,4 @@ export const handleSocket = (socket: Socket, io: Server<DefaultEventsMap, Defaul
     socket.on("crop:new", (data) => handleCrop(socket, data))
 
     socket.on("business:new", (data) => handleBusiness(socket, data, clients))
-    socket.on("business:category:new", (data) => handleNewBusinessCategory(socket, data))
 }
