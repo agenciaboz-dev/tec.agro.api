@@ -1,0 +1,20 @@
+name: tecagro.api
+
+services:
+  api:
+    image: agenciaboz/tecagro.api
+    container_name: tecagro.api
+    environment:
+      - PORT=8092
+      - DATABASE_URL=mysql://boz:Ewhblt69%21%40%23@boz.app.br:3306/tecagro?connection_limit=20&socketTimeout=30
+      - URL=https://api-tecagro.boz.app.br
+    ports:
+      - "8092:8092"
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - static_volume:/app/static
+
+volumes:
+  static_volume:
+    name: "tecagro_static_files"
