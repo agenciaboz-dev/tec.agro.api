@@ -129,8 +129,8 @@ model Crop {
     description String      @db.Text
     weight      Float
     price       Float
-    image       String      @db.Text @default("")
-    gallery     String      @db.Text @default("")
+    image       String      @db.Text
+    gallery     String      @db.Text
 
     producer    User        @relation(fields: [producerId], references: [id])
     producerId  Int
